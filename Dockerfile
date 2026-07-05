@@ -11,8 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN mkdir -p db storage/generated storage/uploads storage/offline
+RUN mkdir -p data/db data/storage/generated data/storage/uploads
 
 EXPOSE 8080
 
-CMD ["python", "backend/app.py"]
+CMD ["python", "app.py"]

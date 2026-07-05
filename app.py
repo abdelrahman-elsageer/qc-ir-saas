@@ -16,9 +16,10 @@ from urllib.parse import parse_qs, urlparse
 from openpyxl import load_workbook
 
 
-ROOT = Path(__file__).resolve().parents[1]
-FRONTEND = ROOT / "frontend"
-TEMPLATE_DIR = ROOT / "templates"
+APP_FILE = Path(__file__).resolve()
+ROOT = APP_FILE.parents[1] if APP_FILE.parent.name == "backend" else APP_FILE.parent
+FRONTEND = ROOT / "frontend" if (ROOT / "frontend").exists() else ROOT
+TEMPLATE_DIR = ROOT / "templates" if (ROOT / "templates").exists() else ROOT
 DATA_ROOT = Path(
     os.environ.get("APP_DATA_DIR")
     or os.environ.get("RAILWAY_VOLUME_MOUNT_PATH")
