@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>JIDAAR QC / IR SaaS</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <section id="loginView" class="login-shell">
+    <form class="login-card" id="loginForm">
+      <div class="brand-row">
+        <div>
+          <p class="eyebrow">JIDAAR</p>
+          <h1>QC / IR SaaS</h1>
+        </div>
+        <span id="netBadge" class="pill">Online</span>
+      </div>
+      <label>Username</label>
+      <input id="username" value="admin" autocomplete="username">
+      <label>Password</label>
+      <input id="password" type="password" value="admin123" autocomplete="current-password">
+      <button class="primary" type="submit">Login</button>
+      <p class="hint">Demo users: admin/admin123, arch/123456, qc/123456, dc/123456.</p>
+      <p id="loginMsg" class="error"></p>
+    </form>
+  </section>
+
+  <section id="appView" class="app hidden">
+    <aside class="sidebar">
+      <h2>JIDAAR</h2>
+      <p id="userInfo" class="muted"></p>
+      <nav>
+        <button class="nav active" data-view="dashboard">Dashboard</button>
+        <button class="nav" data-view="submit">Submit QC</button>
+        <button class="nav" data-view="qc">QC Board</button>
+        <button class="nav" data-view="ir">IR Log</button>
+        <button class="nav" data-view="queue">Offline Queue <span id="queueCount">0</span></button>
+      </nav>
+      <button id="logoutBtn" class="danger ghost">Logout</button>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="syncStatus" class="muted">Loading data...</p>
+        </div>
+        <div class="top-actions">
+          <span id="netBadgeApp" class="pill">Online</span>
+          <button id="syncBtn" class="secondary">Sync Now</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <div class="kpi-grid">
+          <article><span>Pending QC</span><b id="kPendingQC">0</b></article>
+          <article><span>QC Approved</span><b id="kApprovedQC">0</b></article>
+          <article><span>QC Rejected</span><b id="kRejectedQC">0</b></article>
+          <article><span>IR Submitted</span><b id="kIRSubmitted">0</b></article>
+          <article><span>IR Approved</span><b id="kIRApproved">0</b></article>
+          <article><span>Offline Ops</span><b id="kOffline">0</b></article>
+        </div>
+        <div class="panel">
+          <h2>Recent QC</h2>
+          <div class="table-wrap"><table id="recentTable"></table></div>
+        </div>
+      </section>
+
+      <section id="submit" class="view">
+        <div class="two-col">
+          <form id="qcForm" class="panel form-panel">
+            <h2>Submit QC</h2>
+            <div class="grid">
+              <label>Building<select id="building"></select></label>
+              <label>Floor / Location<select id="floor"></select></label>
+              <label>Flat / Unit<input id="flat" placeholder="04"></label>
+              <label>Part<select id="part"></select></label>
+            </div>
+            <label>BOQ Item<select id="item"></select></label>
+            <label>Stage<select id="stage"></select></label>
+            <label>Notes<textarea id="notes" rows="3" placeholder="Optional QC notes"></textarea></label>
+            <button class="primary" type="submit">Submit QC</button>
+            <p id="submitMsg" class="msg"></p>
+          </form>
+
+          <div class="panel">
+            <h2>Stage Status</h2>
+            <div class="table-wrap"><table id="stageTable"></table></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="qc" class="view">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>QC Board</h2>
+            <input id="qcSearch" class="search" placeholder="Search QC...">
+          </div>
+          <div class="table-wrap"><table id="qcTable"></table></div>
+        </div>
+      </section>
+
+      <section id="ir" class="view">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>IR Log</h2>
+            <input id="irSearch" class="search" placeholder="Search IR...">
+          </div>
+          <div class="table-wrap"><table id="irTable"></table></div>
+        </div>
+      </section>
+
+      <section id="queue" class="view">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Offline Queue</h2>
+            <button id="clearQueueBtn" class="danger ghost">Clear Queue</button>
+          </div>
+          <p class="muted">Operations saved here are submitted automatically when internet returns.</p>
+          <div class="table-wrap"><table id="queueTable"></table></div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
