@@ -1,0 +1,14 @@
+services:
+  qc-ir-saas:
+    build: .
+    container_name: qc-ir-saas
+    ports:
+      - "8080:8080"
+    volumes:
+      - qc_ir_db:/app/db
+      - qc_ir_storage:/app/storage
+    restart: unless-stopped
+
+volumes:
+  qc_ir_db:
+  qc_ir_storage:
